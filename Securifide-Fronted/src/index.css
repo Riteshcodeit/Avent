@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Oswald:wght@200..700&family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&family=Outfit:wght@100..900&display=swap');
+@import "tailwindcss";
+
+@theme{
+  /* --color-primary:#7c3aed; */
+  --color-primary:#00C951;
+  --font-body:"Montserrat", sans-serif;
+  --font-heading:"Manrope", sans-serif;
+}
+
+body {
+  @apply text-white;
+  
+
+}
