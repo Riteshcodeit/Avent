@@ -1,14 +1,4 @@
-// import express from 'express'
-// import { getCounts, getIOcs, refreshFeeds } from '../Controllers/iocControllers.js'
-
-// const router = express.Router()
-
-// router.get('/',getIOcs)
-// router.post('/ioc',refreshFeeds)
-// router.get('/counts',getCounts)
-
-// export default router
-
+// -----------------------------------------------------------------------------------
 
 import express from 'express'
 import { getCounts, getIOCs, refreshFeeds, getStats, exportIOCs } from '../Controllers/iocControllers.js'

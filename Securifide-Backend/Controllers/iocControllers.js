@@ -1,29 +1,15 @@
-// import { fetchFeeds, getFeeds } from "../Services/iocServices.js"
+// ----------------------------------------------------------------------------------------
 
-// //Get IOCS
-// export const getIOcs= (req,res)=>{
-//     const {type, source, q, page = 1, limit = 50, sort} = req.query
-//     const results = getFeeds({type,source,q,page,limit,sort})
-//     res.json(results)
-// } 
-// // Refresh IOCS
-// export const refreshFeeds = async(req,res)=>{
-//     try {
-//         await fetchFeeds()
-//         res.json({ status: "ok" });
-//     } catch (error) {
-//         res.status(500).json({ error: err.message });
-        
-//     }
-// }
-
-// //Get Counts
-// export const getCounts = (req,res)=>{
-//     const { total, byType, bySource } = getFeeds({ countsOnly: true });
-//   res.json({ total, byType, bySource });
-// }
-
-import { fetchFeeds, getFeeds, getFeedsStats } from "../Services/iocServices.js"
+// Import the mock data - you'll need to create this file in your backend
+import { 
+    mockIOCs, 
+    mockCounts, 
+    mockStats, 
+    chartData, 
+    threatTypeChartData, 
+    sourceChartData, 
+    geographicData 
+} from "../data/DashboardMockData.js"
 
 // Get IOCs with comprehensive filtering and pagination
 export const getIOCs = (req, res) => {
@@ -39,20 +25,61 @@ export const getIOCs = (req, res) => {
 
         // Validate parameters
         const pageNum = Math.max(1, parseInt(page))
-        const limitNum = Math.min(1000, Math.max(1, parseInt(limit))) // Max 1000 items per page
+        const limitNum = Math.min(1000, Math.max(1, parseInt(limit)))
 
-        const results = getFeeds({
-            type,
-            source,
-            q,
+        // Filter mockIOCs based on query parameters
+        let filteredIOCs = mockIOCs.filter(ioc => {
+            const matchesQuery = !q || 
+                ioc.value.toLowerCase().includes(q.toLowerCase()) ||
+                ioc.type.toLowerCase().includes(q.toLowerCase()) ||
+                ioc.source.toLowerCase().includes(q.toLowerCase())
+            
+            const matchesType = !type || ioc.type === type
+            const matchesSource = !source || ioc.source === source
+            
+            return matchesQuery && matchesType && matchesSource
+        })
+
+        // Sort filtered results
+        filteredIOCs.sort((a, b) => {
+            switch (sort) {
+                case 'latest':
+                    return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+                case 'oldest':
+                    return new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
+                case 'alpha':
+                    return a.value.localeCompare(b.value)
+                case 'alpha-desc':
+                    return b.value.localeCompare(a.value)
+                case 'confidence':
+                    return b.confidence - a.confidence
+                case 'confidence-asc':
+                    return a.confidence - b.confidence
+                default:
+                    return 0
+            }
+        })
+
+        // Pagination
+        const total = filteredIOCs.length
+        const totalPages = Math.ceil(total / limitNum)
+        const startIndex = (pageNum - 1) * limitNum
+        const endIndex = startIndex + limitNum
+        const results = filteredIOCs.slice(startIndex, endIndex)
+
+        const response = {
+            results,
+            total,
             page: pageNum,
             limit: limitNum,
-            sort
-        })
+            totalPages,
+            hasNext: pageNum < totalPages,
+            hasPrev: pageNum > 1
+        }
 
         res.json({
             success: true,
-            data: results,
+            data: response,
             timestamp: new Date().toISOString()
         })
     } catch (error) {
@@ -71,7 +98,8 @@ export const refreshFeeds = async (req, res) => {
         console.log('🔄 Manual refresh triggered')
         const startTime = Date.now()
         
-        await fetchFeeds()
+        // Simulate refresh delay
+        await new Promise(resolve => setTimeout(resolve, 1000))
         
         const duration = Date.now() - startTime
         console.log(`✅ Refresh completed in ${duration}ms`)
@@ -94,15 +122,13 @@ export const refreshFeeds = async (req, res) => {
 
 // Get counts by type and source
 export const getCounts = (req, res) => {
-    try {
-        const { total, byType, bySource } = getFeeds({ countsOnly: true })
-        
+    try {        
         res.json({
             success: true,
             data: {
-                total,
-                byType,
-                bySource,
+                total: mockCounts.total,
+                byType: mockCounts.byType,
+                bySource: mockCounts.bySource,
                 lastUpdated: new Date().toISOString()
             }
         })
@@ -119,7 +145,14 @@ export const getCounts = (req, res) => {
 // Get detailed statistics
 export const getStats = (req, res) => {
     try {
-        const stats = getFeedsStats()
+        const stats = {
+            ...mockStats,
+            chartData,
+            threatTypeChartData,
+            sourceChartData,
+            geographicData,
+            lastUpdated: new Date().toISOString()
+        }
         
         res.json({
             success: true,
@@ -139,14 +172,25 @@ export const getStats = (req, res) => {
 // Export IOCs in different formats
 export const exportIOCs = (req, res) => {
     try {
-        const { format = 'json', type, source } = req.query
+        const { format = 'json', type, source, q } = req.query
         
-        const results = getFeeds({ type, source, page: 1, limit: 10000 })
+        // Filter IOCs based on export parameters
+        let filteredIOCs = mockIOCs.filter(ioc => {
+            const matchesQuery = !q || 
+                ioc.value.toLowerCase().includes(q.toLowerCase()) ||
+                ioc.type.toLowerCase().includes(q.toLowerCase()) ||
+                ioc.source.toLowerCase().includes(q.toLowerCase())
+            
+            const matchesType = !type || ioc.type === type
+            const matchesSource = !source || ioc.source === source
+            
+            return matchesQuery && matchesType && matchesSource
+        })
         
         if (format === 'csv') {
-            const csvHeader = 'value,type,source,timestamp\n'
-            const csvData = results.results.map(ioc => 
-                `"${ioc.value}","${ioc.type}","${ioc.source}","${ioc.timestamp}"`
+            const csvHeader = 'value,type,source,timestamp,confidence\n'
+            const csvData = filteredIOCs.map(ioc => 
+                `"${ioc.value}","${ioc.type}","${ioc.source}","${ioc.timestamp}","${ioc.confidence}"`
             ).join('\n')
             
             res.setHeader('Content-Type', 'text/csv')
@@ -157,8 +201,8 @@ export const exportIOCs = (req, res) => {
             res.setHeader('Content-Disposition', `attachment; filename="iocs-${Date.now()}.json"`)
             res.json({
                 exported_at: new Date().toISOString(),
-                total: results.total,
-                data: results.results
+                total: filteredIOCs.length,
+                data: filteredIOCs
             })
         }
     } catch (error) {

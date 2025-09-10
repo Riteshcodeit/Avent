@@ -1,6 +1,12 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { LayoutDashboard, Bell, Shield, FileText, Settings } from "lucide-react";
+import {
+  LayoutDashboard,
+  Bell,
+  Shield,
+  FileText,
+  Settings,
+} from "lucide-react";
 
 const features = [
   {
@@ -53,15 +59,35 @@ const FeaturesSection = () => {
     <section className="w-full bg-black text-white py-20">
       <div className="max-w-7xl mx-auto px-6 flex flex-col items-center gap-12">
         {/* Heading Section */}
-        <div className="flex flex-col items-center text-center">
+        <motion.div
+          className="flex flex-col items-center text-center"
+          
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.4 }}
+        >
           <button className="px-5 py-2 bg-gradient-to-b from-[#111321] to-[#0C1C28] border-neutral-700 rounded-full text-green-400 text-sm font-medium mb-4">
             Our Features
           </button>
-          <h2 className="text-4xl md:text-5xl font-bold leading-snug">
+          <motion.h2
+            className="text-5xl md:text-6xl font-extrabold leading-tight font-heading 
+               bg-gradient-to-r from-white via-gray-300 to-gray-500 
+               bg-clip-text text-transparent"
+            initial={{ scale: 0.8 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.5 }}
+          >
             Smarter Tools for{" "}
-            <span className="text-green-500">Learning & Upskilling</span>
-          </h2>
-        </div>
+            <span
+              className="text-5xl md:text-6xl font-extrabold leading-tight font-heading 
+               bg-gradient-to-r text-green-500
+               bg-clip-text "
+            >
+              Learning & Upskilling
+            </span>
+          </motion.h2>
+        </motion.div>
 
         {/* Features Layout */}
         <div className="flex flex-col md:flex-row gap-10 w-full">
@@ -130,7 +156,6 @@ const FeaturesSection = () => {
         </div>
       </div>
     </section>
-
   );
 };
 

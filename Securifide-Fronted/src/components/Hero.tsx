@@ -31,7 +31,7 @@ export default function Hero() {
       <div className="flex flex-col items-center justify-center text-center py-20 relative">
         {/* Text */}
         <p className="text-sm text-primary mb-4 font-body">
-          [ Introducing Alvent ]
+          [ Introducing Avent ]
         </p>
         <h1
           className="text-5xl md:text-6xl font-extrabold leading-tight font-heading 
