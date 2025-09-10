@@ -1,4 +1,4 @@
-import { Github, PlayCircle, Linkedin, Instagram, MessageCircle } from "lucide-react";
+import { Github, PlayCircle, Linkedin,  } from "lucide-react";
 
 const Footer = () => {
   return (

@@ -7,7 +7,7 @@ import * as THREE from "three"
 const Cyl = () => {
   let tex = useTexture("./model2.png");
   let cyl = useRef<THREE.Mesh>(null)
-  useFrame((state,delta) =>{
+  useFrame((_state,delta) =>{
     if (cyl.current) {
       cyl.current.rotation.y += delta;
     }
