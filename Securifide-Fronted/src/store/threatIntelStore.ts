@@ -73,8 +73,10 @@ interface ThreatIntelState {
 }
 
 // API Configuration
-const API_BASE_URL = 'http://localhost:3000/api';
-
+const API_BASE_URL =
+  import.meta.env.MODE === "development"
+    ? "http://localhost:3000/api"
+    : "https://securifide-backend.onrender.com/api";
 // Default filters
 const defaultFilters: Filters = {
   type: null,
