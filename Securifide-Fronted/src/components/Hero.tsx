@@ -54,8 +54,8 @@ export default function Hero() {
         </p>
 
         {/* CTA */}
-        <button className="mt-8 bg-primary px-6 py-3 font-body rounded-md text-white font-semibold hover:bg-[#075555]">
-          View Demo
+        <button className="mt-8 bg-primary px-6 py-3 font-body rounded-md text-white font-semibold hover:bg-neutral-700 transition border border-neutral-700">
+          View Dashboard
         </button>
       </div>
 

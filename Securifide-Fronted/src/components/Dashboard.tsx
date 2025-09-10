@@ -244,6 +244,11 @@ export default function Dashboard() {
     loadData();
   }, []);
 
+  // Re-fetch data whenever filters change
+useEffect(() => {
+  fetchIOCs();
+}, [filters]);
+
   // Sync search input with filter
   useEffect(() => {
     setSearchQuery(filters.q || '');
@@ -276,7 +281,7 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
+    <div id='dashboard' className="min-h-screen bg-black relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-20 w-72 h-72 bg-green-500/30 rounded-full blur-3xl animate-pulse"></div>
@@ -338,7 +343,7 @@ export default function Dashboard() {
           <GlassmorphicCard className="mb-8" hover={false}>
             <div className="flex flex-wrap gap-4 items-center justify-center">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform-translate-y-1/2 text-white/60 w-5 h-5" />
+                <Search className="absolute left-3 top-1/3 transform-translate-y-1/3 text-white/60 w-5 h-5" />
                 <input
                   type="text"
                   placeholder="Search IOCs..."

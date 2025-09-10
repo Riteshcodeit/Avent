@@ -11,14 +11,14 @@ const Footer = () => {
           </h2>
           <div className="flex gap-4 mt-6 justify-center">
             <a
-              href="#demo" // replace with actual demo link
+              href="#dashboard" // replace with actual demo link
               className="flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-medium rounded-xl hover:bg-green-500 transition"
             >
               <PlayCircle className="w-5 h-5" />
-              View Demo
+              View DashBoard
             </a>
             <a
-              href="https://github.com/your-repo" // replace with your repo
+              href="https://github.com/Riteshcodeit/Avent" // replace with your repo
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-6 py-3 bg-neutral-800 text-white font-medium rounded-xl hover:bg-neutral-700 transition border border-neutral-700"
@@ -32,28 +32,12 @@ const Footer = () => {
         {/* Social Icons */}
         <div className="flex gap-4">
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/ritesh-dussani-253728286/"
             target="_blank"
             rel="noopener noreferrer"
             className="w-10 h-10 flex items-center justify-center rounded-md bg-neutral-900 hover:bg-neutral-700 transition"
           >
             <Linkedin className="w-5 h-5" />
-          </a>
-          <a
-            href="https://instagram.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-10 h-10 flex items-center justify-center rounded-md bg-neutral-900 hover:bg-neutral-700 transition"
-          >
-            <Instagram className="w-5 h-5" />
-          </a>
-          <a
-            href="https://discord.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-10 h-10 flex items-center justify-center rounded-md bg-neutral-900 hover:bg-neutral-700 transition"
-          >
-            <MessageCircle className="w-5 h-5" />
           </a>
         </div>
 

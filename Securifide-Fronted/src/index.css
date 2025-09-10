@@ -9,6 +9,10 @@
   --font-heading:"Manrope", sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+} 
+
 body {
   @apply text-white;
   

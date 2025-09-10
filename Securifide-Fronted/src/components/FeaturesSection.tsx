@@ -56,7 +56,7 @@ const FeaturesSection = () => {
   const [active, setActive] = useState(features[0]);
 
   return (
-    <section className="w-full bg-black text-white py-20">
+    <section id="features" className="w-full bg-black text-white py-20">
       <div className="max-w-7xl mx-auto px-6 flex flex-col items-center gap-12">
         {/* Heading Section */}
         <motion.div
@@ -78,13 +78,13 @@ const FeaturesSection = () => {
             animate={{ scale: 1 }}
             transition={{ duration: 0.5 }}
           >
-            Smarter Tools for{" "}
+            Smarter Defense for{" "}
             <span
               className="text-5xl md:text-6xl font-extrabold leading-tight font-heading 
                bg-gradient-to-r text-green-500
                bg-clip-text "
             >
-              Learning & Upskilling
+              Cyber Threats
             </span>
           </motion.h2>
         </motion.div>

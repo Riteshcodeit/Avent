@@ -18,13 +18,13 @@ export default function Navbar() {
       {/* Button */}
       <button>
        <a
-              href="https://github.com/your-repo" // replace with your repo
+              href="https://github.com/Riteshcodeit/Avent" // replace with your repo
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-6 py-3 bg-primary text-white font-medium rounded-xl hover:bg-neutral-700 transition border border-neutral-700"
             >
               <Github className="w-5 h-5" />
-              GitHub Repository
+              GitHub Repo
             </a>
       </button>
     </nav>
