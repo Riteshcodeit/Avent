@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000
 // Enhanced CORS configuration for frontend development
 app.use(cors({
     origin: process.env.NODE_ENV === 'production' 
-        ? ['https://yourdomain.com'] 
+        ? ['https://aventsecurifide.netlify.app/'] 
         : ['http://localhost:5173'],
     credentials: true
 }))
