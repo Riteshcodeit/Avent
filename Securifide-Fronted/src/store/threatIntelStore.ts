@@ -76,7 +76,7 @@ interface ThreatIntelState {
 const API_BASE_URL =
   import.meta.env.MODE === "development"
     ? "http://localhost:3000/api"
-    : "https://securifide-backend.onrender.com/api";
+    : "https://avent.onrender.com";
 // Default filters
 const defaultFilters: Filters = {
   type: null,
