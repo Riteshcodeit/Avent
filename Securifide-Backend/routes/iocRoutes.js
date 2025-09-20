@@ -20,13 +20,4 @@ router.get('/stats', getStats)
 // Export IOCs (CSV, JSON)
 router.get('/export', exportIOCs)
 
-// Get available sources and types
-router.get('/metadata', (req, res) => {
-    res.json({
-        sources: ['blocklist.de', 'spamhaus', 'digitalside'],
-        types: ['ip', 'subnet', 'url'],
-        sortOptions: ['latest', 'oldest', 'alpha', 'alpha-desc']
-    })
-})
-
 export default router
