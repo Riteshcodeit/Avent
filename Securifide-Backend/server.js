@@ -1,5 +1,3 @@
-
-
 import express from 'express'
 import cors from 'cors'
 import iocRoutes from './routes/iocRoutes.js'
@@ -20,20 +18,9 @@ app.use(express.json())
 // IOC routes
 app.use('/api/iocs', iocRoutes)
 
-// Health check endpoint
-app.get('/health', (req, res) => {
-    res.json({ status: 'ok', timestamp: new Date().toISOString() })
-})
-
 app.get('/', (req, res) => {
     res.json({ 
-        message: 'Threat Intelligence API Server',
-        endpoints: {
-            health: '/health',
-            iocs: '/api/iocs',
-            refresh: '/api/iocs/refresh',
-            counts: '/api/iocs/counts'
-        }
+        message: 'Threat Intelligence API Server running ......',
     })
 })
 
